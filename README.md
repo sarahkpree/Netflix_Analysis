@@ -16,7 +16,7 @@ To get started, I first downloaded the public data set and opened it with Excel.
 
 There is a lot of the data in this data set that is categorical. In order to get a better understanding of the data and to see a graphical representation of over 15,000 titles in the Netflix database, I started with creating bar graphs for the five columns with categorical data: Genre, Language, Movie vs. TV, Run time, and Rating. Then, I created histograms and calculated the mean, median, and standard deviation for the three columns with numerical data: IMDb Score, Rotten Tomatoes Score, and Box office. 
  
-## Correlations/Relationships
+## Correlations & Relationships
 
 To summarize the relationships between the numerical data, scatter plots were created and then analyzed. 
 
@@ -30,6 +30,9 @@ FilterIMDbandBox$Boxoffice = gsub("\\,", "", FilterIMDbandBox$Boxoffice)
 plot(x= FilterIMDbandBox$IMDb.Score, y= as.numeric(FilterIMDbandBox$Boxoffice), xlab = "IMDb Score", ylab = "Box Office")
 ```
 
+<img width="834" alt="Screen Shot 2024-04-03 at 2 00 58 PM" src="https://github.com/sarahkpree/Netflix_Analysis/assets/61251211/c6a02933-4e99-46c1-8483-f16fa57c77fc">
+
+
 Based on the above graph, the relationship between IMDb Score and Box Office is nonlinear. The graph looks similar to a bell curve. There appears to be a peak of Box Office earnings around an IMDb score of 7. The majority of data falls within this curve; however, there appear to be some outliers. A few of the highest earning titles have IMDb scores closer to 8 or 9. These outliers could be due to a number of factors including popular or A-list actors, higher filming budget, unique marketing, etc.
 
 ### Rotten Tomatoes Score and Box Office
@@ -42,6 +45,8 @@ FilterRottenandBox$Boxoffice = gsub("\\,", "", FilterRottenandBox$Boxoffice)
 plot(x= FilterRottenandBox$Rotten.Tomatoes.Score, y= as.numeric(FilterRottenandBox$Boxoffice), xlab = "Rotten Tomatoes Score", ylab = "Box Office")
 ```
 
+<img width="811" alt="Screen Shot 2024-04-03 at 2 01 24 PM" src="https://github.com/sarahkpree/Netflix_Analysis/assets/61251211/40eb8389-7180-47fa-876e-77aecc0dafa7">
+
 Based on the above graph, there does not appear to be a correlation between Box Office and Rotten Tomatoes Score. The data falls on a horizontal line along the x-axis. The Rotten Tomatoes score does not appear to have an effect on the Box Office earnings.
 
 ### IMDb Score and Rotten Tomatoes Score
@@ -51,12 +56,13 @@ Based on the above graph, there does not appear to be a correlation between Box 
 IMDbvsRotten <- TheData %>% filter(IMDb.Score != "" & Rotten.Tomatoes.Score != "")
 plot(x= IMDbvsRotten$Rotten.Tomatoes.Score, y= IMDbvsRotten$IMDb.Score, xlab = "Rotten Tomatoes Score", ylab = "IMDb Score")
 ```
+<img width="816" alt="Screen Shot 2024-04-03 at 2 02 13 PM" src="https://github.com/sarahkpree/Netflix_Analysis/assets/61251211/ac762834-be55-4c2b-bf78-323618e86ae0">
 
 Based on the scatter plot, it can be seen that IMDb Score and Rotten Tomatoes Score have a positive linear relationship. Although there are some outliers, the variation remains constant and the majority of data lies along the line. 
 
 Because the relationship is linear, the assumptions (conditions) of linear regression were checked to see if they were met in order to apply the linear regression model. 
 
-Assumptions of Linear Regression:
+**Assumptions of Linear Regression:**
 1. The Y-values, errors, are independent. 
 2. The y values can be expressed as a linear function of the x variable. 
 3. The variations around the regression line is constant.
@@ -70,6 +76,7 @@ LinReg <- lm(IMDbvsRotten$IMDb.Score ~ AdjustScore)
 par(mfrow = c(2, 2))
 plot(LinReg)
 ```
+<img width="813" alt="Screen Shot 2024-04-03 at 2 02 40 PM" src="https://github.com/sarahkpree/Netflix_Analysis/assets/61251211/058a32a2-1960-4305-88fe-f44f9fa23da9">
 
 The first assumption, independence of the residuals, is true. The IMDb scores are not dependent on the Rotten Tomatoes score. 
 
