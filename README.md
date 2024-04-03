@@ -1,6 +1,6 @@
 # Netflix Analysis
 
-## INTRODUCTION
+## Introduction
 
 Netflix is one of the most popular streaming services with over 15,000 titles ranging from movies across various genres, original TV series', anime, documentaries, and everything in between. My final project is going to focus on the content of Netflix and what you can learn from this data.
 
